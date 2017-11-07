@@ -174,4 +174,8 @@ pip-log.txt
 .DS_Store
 
 # GhostDoc
+<<<<<<< HEAD
 *.GhostDoc.xml
+=======
+*.GhostDoc.xml
+>>>>>>> bb2e437fc22886680781af90ec49aaa24713fc3e
