@@ -730,9 +730,20 @@ namespace Graffiti.Core
 		{
 			get
 			{
+			    string jQueryUrl;
+			    if (SiteSettings.Get().UseExternalJQuery)
+			    {
+			        jQueryUrl = HttpContext.Current.Request.IsSecureConnection ?
+			            "https://ajax.microsoft.com/ajax/jQuery/jquery-1.9.1.min.js" :
+			            "http://ajax.microsoft.com/ajax/jQuery/jquery-1.9.1.min.js";
+			    }
+			    else
+			    {
+			        jQueryUrl = VirtualPathUtility.ToAbsolute("~/__utility/js/jquery-1.9.1.min.js");
+			    }
+
 				return string.Format("\n<script type=\"text/javascript\" src=\"{0}\"></script>\n<script type=\"text/javascript\" src=\"{1}\" ></script>\n",
-					SiteSettings.Get().UseExternalJQuery ? "http://ajax.microsoft.com/ajax/jQuery/jquery-1.9.1.min.js" : VirtualPathUtility.ToAbsolute("~/__utility/js/jquery-1.9.1.min.js"),
-					VirtualPathUtility.ToAbsolute("~/__utility/js/graffiti.js"));
+				    jQueryUrl, VirtualPathUtility.ToAbsolute("~/__utility/js/graffiti.js"));
 			}
 		}
 
