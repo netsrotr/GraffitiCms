@@ -96,6 +96,17 @@ namespace Graffiti.Core.Marketplace
         {
             get { return _urlFormat; }
         }
+        public static string BaseUrl
+        {
+            get
+            {
+                var configuredUrl = Url("");
+                Uri uri;
+                if (Uri.TryCreate(configuredUrl, UriKind.Absolute, out uri))
+                    return uri.GetComponents(UriComponents.SchemeAndServer, UriFormat.SafeUnescaped);
+                return configuredUrl;
+            }
+        }
 
         private static string Url(string path)
         {
