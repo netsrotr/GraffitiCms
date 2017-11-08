@@ -112,7 +112,8 @@ publish
 [Oo]bj
 sql
 TestResults
-*.Cache
+PublishProfiles
+*.[Cc]ache
 ClientBin
 stylecop.*
 ~$*
@@ -175,3 +176,4 @@ pip-log.txt
 
 # GhostDoc
 *.GhostDoc.xml
+
