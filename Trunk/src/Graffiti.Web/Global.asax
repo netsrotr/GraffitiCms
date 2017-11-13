@@ -16,7 +16,7 @@
         RolePermissionManager.GetRolePermissions();
 
         if(!SiteSettings.Get().GenerateFolders)
-            UrlRouting.Initialize();
+            UrlRouting.Initialize(); //TODO: review!!! usage for .NET 4.0/4.5
     }
 
     static System.Threading.Timer _timer = null;
