@@ -54,6 +54,7 @@ _pkginfo.txt
 # Build results
 [Dd]ebug/
 [Rr]elease/
+**/obj/**
 *_i.c
 *_p.c
 *.ilk
@@ -177,3 +178,5 @@ pip-log.txt
 # GhostDoc
 *.GhostDoc.xml
 
+# Resharper / Jetbrains
+*.DotSettings
