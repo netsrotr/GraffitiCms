@@ -14,6 +14,7 @@ using Lucene.Net.Search;
 using Lucene.Net.Highlight;
 using Lucene.Net.Store;
 using LQ = Lucene.Net.QueryParsers;
+using Version = Lucene.Net.Util.Version;
 
 namespace Graffiti.Core
 {
@@ -111,7 +112,7 @@ namespace Graffiti.Core
 
 		private static QueryParser GetQueryParser(Analyzer a)
 		{
-			return new MultiFieldQueryParser(new string[] { "body", "title" }, a);
+			return new MultiFieldQueryParser(Version.LUCENE_29, new string[] { "body", "title" }, a);
 		}
 
 
@@ -134,7 +135,7 @@ namespace Graffiti.Core
 
 		protected virtual Analyzer GetAnalyzer()
 		{
-			return new StandardAnalyzer();
+			return new StandardAnalyzer(Version.LUCENE_29);
 		}
 
 		protected virtual int ReaderTimeOut { get { return 15000; } }
@@ -165,14 +166,17 @@ namespace Graffiti.Core
 				QueryParser parser = GetQueryParser(analyzer);
 				parser.SetDefaultOperator(QueryParser.AND_OPERATOR);
 				Query q = parser.Parse(_sq);
-				searcher = new IndexSearcher(rd);
+				searcher = new IndexSearcher(rd, true);
 
 				Query filterQuery = GetFilterQuery(sq);
 				LFilter theFilter = null;
 				if (filterQuery != null)
 					theFilter = new LFilter(filterQuery);
 
-				Hits hits = searcher.Search(q, theFilter, GetSort(sq));
+                //TODO: replace next line by:
+                //  Lucene.Net.Search.TopFieldDocs hits = Search(Lucene.Net.Search.Weight weight, Lucene.Net.Search.Filter filter, 
+                //                                               int nDocs, Lucene.Net.Search.Sort sort)
+                Hits hits = searcher.Search(q, theFilter, GetSort(sq));
 
 				SearchResultSet<Post> searchResults = new SearchResultSet<Post>();
 
@@ -282,8 +286,8 @@ namespace Graffiti.Core
 				if (rd == null)
 					return -1;
 
-				writer = new IndexWriter(rd, GetAnalyzer(), false);
-				int count = writer.DocCount();
+				writer = new IndexWriter(rd, GetAnalyzer(), false, IndexWriter.MaxFieldLength.UNLIMITED);
+				int count = writer.NumDocs(); // consider deleted docs
 				return count;
 			}
 			finally
@@ -328,7 +332,7 @@ namespace Graffiti.Core
 
 				Query q = parser.Parse("postid:" + postid);
 
-				searcher = new IndexSearcher(rd);
+				searcher = new IndexSearcher(rd, true);
 
 				Hits hits = searcher.Search(q);
 				if (hits != null && hits.Length() > 0)
@@ -336,7 +340,7 @@ namespace Graffiti.Core
 
 				if (docId > -1)
 				{
-					reader = IndexReader.Open(rd);
+					reader = IndexReader.Open(rd, true);
 
 					TermFreqVector tfv = reader.GetTermFreqVector(docId, "exact");
 					BooleanQuery booleanQuery = new BooleanQuery();
@@ -533,7 +537,8 @@ namespace Graffiti.Core
 
 		private Query _query = null;
 
-		public override BitArray Bits(IndexReader reader)
+        [Obsolete]
+        public override BitArray Bits(IndexReader reader)
 		{
 			BitArray bits = new BitArray((reader.MaxDoc() % 64 == 0 ? reader.MaxDoc() / 64 : reader.MaxDoc() / 64 + 1) * 64);
 			new IndexSearcher(reader).Search(_query, new LHitCollector(bits));
@@ -542,7 +547,8 @@ namespace Graffiti.Core
 		}
 	}
 
-	internal class LHitCollector : HitCollector
+    [Obsolete("Please use Collector instead.")]
+    internal class LHitCollector : HitCollector
 	{
 		internal LHitCollector(BitArray bits)
 		{
