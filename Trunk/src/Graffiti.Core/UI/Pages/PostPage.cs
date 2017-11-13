@@ -6,7 +6,6 @@ namespace Graffiti.Core
 {
 	public class PostPage : TemplatedThemePage
 	{
-		private string viewName;
 		protected override string ViewName
 		{
 			get

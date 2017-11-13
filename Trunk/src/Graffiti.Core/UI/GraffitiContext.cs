@@ -15,7 +15,6 @@ namespace Graffiti.Core
 	/// </summary>
 	public class GraffitiContext : VelocityContext
 	{
-		private static readonly bool _isFullTrust = false;
 		static GraffitiContext()
 		{
 			/*
