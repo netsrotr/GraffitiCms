@@ -441,7 +441,7 @@ namespace Graffiti.Core
         /// <summary>
         /// Returns a single category.
         /// </summary>
-        /// <param name="name">The linkname of the category to find. This is not case sensitive</param>
+        /// <param name="linkName">The linkname of the category to find. This is not case sensitive</param>
         /// <param name="allowNull">determins if an exception is thrown if the category does not exist</param>
         /// <returns></returns>
         public Category GetCachedCategoryByLinkName(string linkName, bool allowNull)
@@ -457,17 +457,18 @@ namespace Graffiti.Core
                 throw new Exception("The category with link name " + linkName + " could not be found");
         }
 
-		  /// <summary>
-		  /// Returns a single category.
-		  /// </summary>
-		  /// <param name="name">The linkname of the category to find. This is not case sensitive</param>
-		  /// <param name="allowNull">determins if an exception is thrown if the category does not exist</param>
-		  /// <returns></returns>
-		  public Category GetCachedCategoryByLinkName(string linkName, int ParentId, bool allowNull)
+        /// <summary>
+        /// Returns a single category.
+        /// </summary>
+        /// <param name="linkName">The linkname of the category to find. This is not case sensitive</param>
+        /// <param name="parentId">Parent ID</param>
+        /// <param name="allowNull">determins if an exception is thrown if the category does not exist</param>
+        /// <returns></returns>
+        public Category GetCachedCategoryByLinkName(string linkName, int parentId, bool allowNull)
 		  {
 			  CategoryCollection cc = GetAllCachedCategories();
 			  foreach (Category c in cc)
-				  if (c.ParentId == ParentId && Util.AreEqualIgnoreCase(c.LinkName, linkName))
+				  if (c.ParentId == parentId && Util.AreEqualIgnoreCase(c.LinkName, linkName))
 					  return c;
 
 			  if (allowNull)

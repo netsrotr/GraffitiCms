@@ -110,7 +110,7 @@ namespace Graffiti.Core
 		/// Stores the results of a re-order in the the ObjectStore
 		/// </summary>
 		/// <param name="id">The idea of the element (lbar, rbar,qbar). This value will be used as the delimiter in the list paramater</param>
-		/// <param name="list">A serialized delimited list of widget ids. It should use the pattern &id[]=Guid&id[]Guid</param>
+		/// <param name="list">A serialized delimited list of widget ids. It should use the pattern &amp;id[]=Guid&amp;id[]Guid</param>
 		public static void ReOrder(string id, string list)
 		{
 			string[] saList = list.Split(new string[] { "&" }, StringSplitOptions.RemoveEmptyEntries);

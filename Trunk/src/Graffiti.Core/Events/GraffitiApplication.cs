@@ -107,7 +107,7 @@ namespace Graffiti.Core
 		/// <summary>
 		/// Executes the UrlRoutingAdd Event
 		/// </summary>
-		/// <param name="routeTable"></param>
+		/// <param name="routes"></param>
 		public void ExecuteUrlRoutingAdd(RouteCollection routes)
 		{
 			UrlRoutingEventHandler handler = Events[UrlRoutingAddObject] as UrlRoutingEventHandler;
@@ -135,7 +135,7 @@ namespace Graffiti.Core
 		/// <summary>
 		/// Executes the LoadGraffitiContext event
 		/// </summary>
-		/// <param name="item"></param>
+		/// <param name="context"></param>
 		internal void ExecuteLoadGraffitiContext(GraffitiContext context)
 		{
 			GraffitiContextEventHandler re = Events[LoadGraffitiContextObject] as GraffitiContextEventHandler;
@@ -183,7 +183,7 @@ namespace Graffiti.Core
 		/// <summary>
 		/// Executes the RssNamespace event
 		/// </summary>
-		/// <param name="item"></param>
+		/// <param name="writer"></param>
 		internal void ExecuteRssNamespace(XmlTextWriter writer)
 		{
 			RssEventHandler re = Events[RssNamespaceObject] as RssEventHandler;
@@ -193,11 +193,11 @@ namespace Graffiti.Core
 			}
 		}
 
-        /// <summary>
-        /// Executes the RssChannel event
-        /// </summary>
-        /// <param name="item"></param>
-        internal void ExecuteRssChannel(XmlTextWriter writer) {
+		/// <summary>
+		/// Executes the RssChannel event
+		/// </summary>
+		/// <param name="writer"></param>
+		internal void ExecuteRssChannel(XmlTextWriter writer) {
             RssEventHandler re = Events[RssChannelObject] as RssEventHandler;
             if (re != null) {
                 re(writer, EventArgs.Empty);
@@ -207,7 +207,8 @@ namespace Graffiti.Core
 		/// <summary>
 		/// Executes the RssItem event
 		/// </summary>
-		/// <param name="item"></param>
+		/// <param name="writer"></param>
+		/// <param name="post"></param>
 		internal void ExecuteRssItem(XmlTextWriter writer, Post post)
 		{
 			RssPostEventHandler re = Events[RssItemObject] as RssPostEventHandler;

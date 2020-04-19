@@ -729,7 +729,7 @@ namespace Graffiti.Core
         /// <param name="src">
         /// Represents a (sub)sequence of _original 
         /// </param>
-        /// <param name="desc">
+        /// <param name="des">
         /// Represents a (sub)sequence of _modified 
         /// </param>
         /// <returns>
@@ -902,7 +902,7 @@ namespace Graffiti.Core
         /// <param name="src">
         /// The source sequence
         /// </param>
-        /// <param name="desc">
+        /// <param name="des">
         /// The destination sequence
         /// </param>
         /// <returns>

@@ -173,10 +173,12 @@ namespace Graffiti.Core
 				if (filterQuery != null)
 					theFilter = new LFilter(filterQuery);
 
-                //TODO: replace next line by:
-                //  Lucene.Net.Search.TopFieldDocs hits = Search(Lucene.Net.Search.Weight weight, Lucene.Net.Search.Filter filter, 
-                //                                               int nDocs, Lucene.Net.Search.Sort sort)
-                Hits hits = searcher.Search(q, theFilter, GetSort(sq));
+				//TODO: replace next line by:
+				//  Lucene.Net.Search.TopFieldDocs hits = Search(Lucene.Net.Search.Weight weight, Lucene.Net.Search.Filter filter, 
+				//                                               int nDocs, Lucene.Net.Search.Sort sort)
+#pragma warning disable CS0618 // Type or member is obsolete
+				Hits hits = searcher.Search(q, theFilter, GetSort(sq));
+#pragma warning restore CS0618 // Type or member is obsolete
 
 				SearchResultSet<Post> searchResults = new SearchResultSet<Post>();
 
@@ -333,8 +335,10 @@ namespace Graffiti.Core
 				Query q = parser.Parse("postid:" + postid);
 
 				searcher = new IndexSearcher(rd, true);
-
+				//TODO
+#pragma warning disable CS0618 // Type or member is obsolete
 				Hits hits = searcher.Search(q);
+#pragma warning restore CS0618 // Type or member is obsolete
 				if (hits != null && hits.Length() > 0)
 					docId = hits.Id(0);
 
@@ -349,8 +353,10 @@ namespace Graffiti.Core
 						TermQuery tq = new TermQuery(new Term("exact", tfv.GetTerms()[j]));
 						booleanQuery.Add(tq, BooleanClause.Occur.SHOULD);
 					}
-
+					//TODO
+#pragma warning disable CS0618 // Type or member is obsolete
 					Hits similarhits = searcher.Search(booleanQuery, Sort.RELEVANCE);
+#pragma warning restore CS0618 // Type or member is obsolete
 
 					for (int i = 0; i < similarhits.Length(); i++)
 					{

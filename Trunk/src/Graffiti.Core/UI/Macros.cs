@@ -268,7 +268,7 @@ namespace Graffiti.Core
 		/// <summary>
 		/// Fully qualifies an absolute url
 		/// </summary>
-		/// <param name="aboluteUrl"></param>
+		/// <param name="absoluteUrl"></param>
 		/// <returns></returns>
 		public string FullUrl(string absoluteUrl)
 		{
@@ -1283,9 +1283,11 @@ namespace Graffiti.Core
 			{
 				return string.Format("{0}?code={1}&size={2}", defaultGravatar, Docuverse.Identicon.IdenticonUtil.Code(ip), size);
 			}
-
+			//TODO
+#pragma warning disable CS0618 // Type or member is obsolete
 			string hash = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(email.Trim(), "MD5").Trim().ToLower();
-            return string.Format("http://www.gravatar.com/avatar/{0}?r=g&amp;s={1}&amp;d=identicon", hash, size);
+#pragma warning restore CS0618 // Type or member is obsolete
+			return string.Format("http://www.gravatar.com/avatar/{0}?r=g&amp;s={1}&amp;d=identicon", hash, size);
 		}
 
 		#endregion
@@ -1498,21 +1500,22 @@ namespace Graffiti.Core
 		/// Gets the formatted date + seperator + formatted time (from SiteSettings) for the datetime
 		/// </summary>
 		/// <param name="dt"></param>
+		/// <param name="separator"></param>
 		/// <returns></returns>
-		public string FormattedTime(string dt, string seperator)
+		public string FormattedTime(string dt, string separator)
 		{
-			return FormattedDateTime(GetDateTimeFromString(dt), seperator);
+			return FormattedDateTime(GetDateTimeFromString(dt), separator);
 		}
 
 		/// <summary>
 		/// Gets the formatted date + seperator + formatted time (from SiteSettings) for the datetime
 		/// </summary>
 		/// <param name="dt"></param>
-		/// <param name="seperator"></param>
+		/// <param name="separator"></param>
 		/// <returns></returns>
-		public string FormattedDateTime(DateTime dt, string seperator)
+		public string FormattedDateTime(DateTime dt, string separator)
 		{
-			return FormattedDate(dt) + seperator + FormattedTime(dt);
+			return FormattedDate(dt) + separator + FormattedTime(dt);
 		}
 		#endregion
 

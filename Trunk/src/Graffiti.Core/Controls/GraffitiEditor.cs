@@ -91,7 +91,7 @@ namespace Graffiti.Core
 		public bool PastFromWordIgnoreFontFace { get { return (bool)GetVstate("pfwordigff", false); } set { ViewState["pfwordigff"] = value; } }
 
 		/// <summary>
-		/// Whether to keep structure markup (<h1>, <h2>, etc.) or replace it with elements that create more similar pasting results when pasting content from Microsoft Word into the Paste from Word dialog. 
+		/// Whether to keep structure markup (&lt;h1>, &lt;h2>, etc.) or replace it with elements that create more similar pasting results when pasting content from Microsoft Word into the Paste from Word dialog. 
 		/// </summary>
 		public bool PasteFromWordKeepsStructure { get { return (bool)GetVstate("pfwordkpstr", false); } set { ViewState["pfwordkpstr"] = value; } }
 

@@ -1,6 +1,15 @@
 <%@ Page Language="C#" AutoEventWireup="true"  Inherits="Graffiti.Core.TemplatedThemePage" ClassName="GraffitiHomePage" %>
 <%@ Import namespace="DataBuddy"%>
 <script runat="Server">
+    protected override void OnInit(EventArgs e)
+    {
+        base.OnInit(e);
+
+        if (SiteSettings.Get().RequireSSL)
+        {
+            Util.RedirectToSSL(Context);
+        }
+    }
 
     protected override string ViewLookUp(string baseName, string defaultViewName)
     {
